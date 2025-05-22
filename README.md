@@ -50,7 +50,6 @@ Penelitian oleh **Mosavi et al. (2018)** dalam *Journal of Hydrology* membuktika
 
 ## 🧹 Data Preparation
 
-- **Penanganan Duplikat**: Menghapus 412 data duplikat
 - **Standarisasi**: Menggunakan `StandardScaler` untuk normalisasi fitur
 - **Train-Test Split**: Rasio 80:20 dengan stratifikasi
 
