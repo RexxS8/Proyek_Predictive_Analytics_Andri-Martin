@@ -94,7 +94,7 @@ grid_search = GridSearchCV(
 
 grid_search.fit(X_train, y_train)
 best_rf = grid_search.best_estimator_```python
-
+```
 # 📊 Evaluation
 
 ## Metrik yang Digunakan:
@@ -140,4 +140,4 @@ plt.xlabel('Importance')
 plt.ylabel('Feature')
 plt.tight_layout()
 plt.show()
-
+```
