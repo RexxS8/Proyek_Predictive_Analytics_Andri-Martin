@@ -93,4 +93,51 @@ grid_search = GridSearchCV(
 )
 
 grid_search.fit(X_train, y_train)
-best_rf = grid_search.best_estimator_
+best_rf = grid_search.best_estimator_```python
+
+# 📊 Evaluation
+
+## Metrik yang Digunakan:
+- **MAE (Mean Absolute Error):** Deviasi absolut rata-rata prediksi  
+- **RMSE (Root Mean Squared Error):** Deviasi kuadrat rata-rata  
+- **R² Score:** Proporsi varian yang dapat dijelaskan oleh model  
+
+| Model                  | MAE   | RMSE  | R²    |
+|------------------------|-------|-------|-------|
+| Linear Regression      | 0.018 | 0.024 | 0.992 |
+| Random Forest (Base)   | 0.020 | 0.026 | 0.730 |
+| Random Forest (Tuned)  | 0.020 | 0.026 | 0.732 |
+
+---
+
+## 📌 Interpretasi:
+- **Linear Regression** memiliki R² tinggi, namun berisiko **overfitting** pada data yang tidak linier.
+- **Random Forest** dipilih sebagai model final karena:
+  - Lebih **robust** terhadap overfitting  
+  - Mampu menangkap **hubungan non-linear**  
+  - Memberikan **feature importance** yang bermanfaat untuk insight  
+
+---
+
+## 📌 Feature Importance (Python Code)
+
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+importances = best_rf.feature_importances_
+features = X_train.columns
+feature_importance_df = pd.DataFrame({
+    'Feature': features,
+    'Importance': importances
+}).sort_values(by='Importance', ascending=False)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(data=feature_importance_df, x='Importance', y='Feature', palette='viridis')
+plt.title('Feature Importance dari Random Forest (Tuned)', fontsize=14)
+plt.xlabel('Importance')
+plt.ylabel('Feature')
+plt.tight_layout()
+plt.show()
+
