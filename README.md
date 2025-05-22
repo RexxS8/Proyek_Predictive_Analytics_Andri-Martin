@@ -33,8 +33,11 @@ Penelitian oleh **Mosavi et al. (2018)** dalam *Journal of Hydrology* membuktika
 ## 📦 Data Understanding
 
 ### Dataset: Flood Prediction Dataset
-- 50.000 sampel dengan 21 fitur numerik
-- Variabel target: `FloodProbability` (skala 0–1)
+Dataset ini diperoleh dari [Kaggle - Flood Prediction Dataset](https://www.kaggle.com/datasets/naiyakhalid/flood-prediction-dataset). Dataset ini berisi data numerik yang digunakan untuk membangun model prediksi probabilitas banjir berbasis faktor lingkungan dan sosial.
+
+- Jumlah sampel: 50.000
+- Jumlah fitur: 21 fitur numerik
+- Target variabel: `FloodProbability` (skala 0–1)
 
 ### Fitur Kunci:
 - **Environmental**: `MonsoonIntensity`, `Deforestation`, `ClimateChange`
@@ -42,9 +45,9 @@ Penelitian oleh **Mosavi et al. (2018)** dalam *Journal of Hydrology* membuktika
 - **Socio-political**: `PoliticalFactors`, `PopulationScore`
 
 ### 📈 Analisis Eksploratori:
-- Distribusi target normal dengan mean 0.49
-- Korelasi kuat antara `TopographyDrainage` dengan target (r = 0.82)
-- Outlier terdeteksi pada `Urbanization` dan `PoliticalFactors`
+- Distribusi target `FloodProbability` cenderung normal dengan mean sekitar 0.49
+- Korelasi paling tinggi terhadap target ditemukan pada `TopographyDrainage` (r = 0.82)
+- Outlier signifikan terdeteksi pada fitur `Urbanization` dan `PoliticalFactors`
 
 ---
 
