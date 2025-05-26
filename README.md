@@ -179,47 +179,116 @@ param_grid = {
 ```
 # 📊 Evaluation
 
-## Metrik yang Digunakan:
-- **MAE (Mean Absolute Error):** Deviasi absolut rata-rata prediksi  
-- **RMSE (Root Mean Squared Error):** Deviasi kuadrat rata-rata  
-- **R² Score:** Proporsi varian yang dapat dijelaskan oleh model  
+## 🔎 Metrik yang Digunakan
 
-| Model                  | MAE   | RMSE  | R²    |
-|------------------------|-------|-------|-------|
-| Linear Regression      | 0.018 | 0.024 | 0.992 |
-| Random Forest (Base)   | 0.020 | 0.026 | 0.730 |
-| Random Forest (Tuned)  | 0.020 | 0.026 | 0.732 |
+Evaluasi model dilakukan menggunakan tiga metrik utama:
+
+- **MAE (Mean Absolute Error):** Rata-rata kesalahan absolut antara prediksi dan nilai aktual.
+- **RMSE (Root Mean Squared Error):** Akar dari rata-rata kesalahan kuadrat, memberikan penalti lebih besar pada kesalahan besar.
+- **R² Score:** Proporsi variansi target yang dapat dijelaskan oleh model.
 
 ---
 
-## 📌 Interpretasi:
-- **Linear Regression** memiliki R² tinggi, namun berisiko **overfitting** pada data yang tidak linier.
-- **Random Forest** dipilih sebagai model final karena:
-  - Lebih **robust** terhadap overfitting  
-  - Mampu menangkap **hubungan non-linear**  
-  - Memberikan **feature importance** yang bermanfaat untuk insight  
+## 📈 Hasil Evaluasi Model
+
+| Model                  | MAE     | RMSE    | R²      |
+|------------------------|---------|---------|---------|
+| Linear Regression      | ~0.000  | ~0.000  | 1.000   |
+| Random Forest (Base)   | 0.020   | 0.026   | 0.731   |
+| Random Forest (Tuned)  | 0.020   | 0.026   | 0.732   |
+
+> 🔍 **Catatan:**  
+> Hasil Linear Regression menunjukkan nilai R² sebesar 1.000 dan error mendekati nol. Ini kemungkinan besar merupakan indikasi **overfitting** atau **data leakage**, sehingga hasil tersebut tidak dapat diandalkan sebagai model produksi.
+
+Oleh karena itu, **Random Forest Regressor** dipilih sebagai model akhir karena:
+
+- Mampu menangkap hubungan **non-linear** antar fitur.
+- Memberikan hasil **stabil dan realistis**.
+- Menyediakan **feature importance** sebagai dasar pengambilan keputusan kebijakan.
 
 ---
 
-## 📌 Feature Importance (Python Code)
+## 🛠️ Hyperparameter Tuning
+
+Untuk mengoptimalkan performa Random Forest, dilakukan **GridSearchCV** dengan parameter sebagai berikut:
 
 ```python
-import matplotlib.pyplot as plt
-import seaborn as sns
-import pandas as pd
-
-importances = best_rf.feature_importances_
-features = X_train.columns
-feature_importance_df = pd.DataFrame({
-    'Feature': features,
-    'Importance': importances
-}).sort_values(by='Importance', ascending=False)
-
-plt.figure(figsize=(10, 6))
-sns.barplot(data=feature_importance_df, x='Importance', y='Feature', palette='viridis')
-plt.title('Feature Importance dari Random Forest (Tuned)', fontsize=14)
-plt.xlabel('Importance')
-plt.ylabel('Feature')
-plt.tight_layout()
-plt.show()
+param_grid = {
+    'n_estimators': [50, 100, 150],
+    'max_depth': [None, 10, 20],
+    'min_samples_split': [2, 5, 10]
+}
 ```
+## 🔧 Hasil Tuning
+
+### Best Parameters:
+```python
+{'max_depth': None, 'min_samples_split': 2, 'n_estimators': 150}
+```
+### 📈 Evaluasi Model Terbaik (Random Forest Tuned)
+
+- **MAE**: 0.020  
+- **RMSE**: 0.026  
+- **R² Score**: 0.732
+
+---
+
+### ⚙️ Kesimpulan Tuning
+
+Meskipun peningkatan performa dari tuning relatif kecil (**+0.001 pada R²**), ini menunjukkan bahwa model **sudah cukup optimal sejak awal**, dan tuning berhasil **memperkuat kestabilan performa**.
+
+---
+
+### 🔍 Feature Importance
+
+**5 fitur paling penting** yang dipelajari oleh Random Forest (Tuned):
+
+1. **TopographyDrainage**  
+2. **Rainfall**  
+3. **RiverOverflow**  
+4. **Urbanization**  
+5. **DrainageSystems**
+
+---
+
+### 💡 Insight
+
+Fitur-fitur tersebut **sangat relevan terhadap skenario nyata di lapangan** dan dapat menjadi **indikator utama dalam penyusunan strategi mitigasi banjir**.
+
+---
+
+## 🌍 Evaluasi Dampak terhadap Business Understanding
+
+### ✅ Apakah model menjawab problem statement?
+
+✔️ **Ya**, model berhasil memprediksi probabilitas banjir dengan akurasi yang dapat diterima (**R² sebesar 73.2%**), menjawab pertanyaan utama tentang prediksi risiko banjir menggunakan data lingkungan dan sosial ekonomi.
+
+✔️ Model juga mengidentifikasi fitur yang paling berpengaruh terhadap risiko banjir, menjawab **problem kedua** terkait identifikasi faktor signifikan.
+
+---
+
+### 🎯 Apakah goals berhasil dicapai?
+
+| Goals                              | Status | Bukti                               |
+|------------------------------------|--------|--------------------------------------|
+| Akurasi > 70% (R²)                 | ✅     | R² Score = 0.732                    |
+| Identifikasi 5 fitur paling kritis | ✅     | Top 5 feature importance dari model |
+
+---
+
+### 🌐 Apakah solusi yang dirancang berdampak?
+
+✔️ **Berdampak secara langsung.**  
+Dengan mengetahui bahwa faktor seperti **Topografi**, **Curah Hujan**, dan **Urbanisasi** memiliki pengaruh besar terhadap risiko banjir, **pemerintah dan perencana kota** dapat:
+
+- Menyusun **kebijakan zonasi berbasis risiko**
+- Menargetkan **pembangunan infrastruktur drainase** di wilayah rawan
+- Menyusun **strategi adaptasi perubahan iklim** yang lebih tepat sasaran
+
+---
+
+## 📌 Kesimpulan
+
+Model **Random Forest** dengan **hyperparameter tuning** merupakan **solusi terbaik dalam proyek ini**. Tidak hanya memenuhi target metrik evaluasi, model juga memberikan **wawasan nyata yang dapat diterapkan dalam mitigasi risiko banjir** di tingkat **kebijakan dan perencanaan kota**.
+
+> 📣 *Model prediktif bukan sekadar alat analisis, namun fondasi untuk aksi nyata dalam pengurangan dampak bencana.*
