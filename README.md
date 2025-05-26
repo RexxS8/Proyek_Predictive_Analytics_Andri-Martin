@@ -191,21 +191,50 @@ Evaluasi model dilakukan menggunakan tiga metrik utama:
 
 ## 📈 Hasil Evaluasi Model
 
-| Model                  | MAE     | RMSE    | R²      |
-|------------------------|---------|---------|---------|
-| Linear Regression      | ~0.000  | ~0.000  | 1.000   |
-| Random Forest (Base)   | 0.020   | 0.026   | 0.731   |
-| Random Forest (Tuned)  | 0.020   | 0.026   | 0.732   |
+| Model                  | MAE                | MSE                  | RMSE               | R² Score           |
+|------------------------|--------------------|-----------------------|--------------------|--------------------|
+| Linear Regression      | 2.9821e-16         | 1.4171e-31            | 3.7644e-16         | 1.0000             |
+| Random Forest (Base)   | 0.0205             | 0.0006711             | 0.0259             | 0.7305             |
+| Random Forest (Tuned)  | 0.0204             | 0.0006664             | 0.0258             | 0.7324             |
 
 > 🔍 **Catatan:**  
 > Hasil Linear Regression menunjukkan nilai R² sebesar 1.000 dan error mendekati nol. Ini kemungkinan besar merupakan indikasi **overfitting** atau **data leakage**, sehingga hasil tersebut tidak dapat diandalkan sebagai model produksi.
 
-Oleh karena itu, **Random Forest Regressor** dipilih sebagai model akhir karena:
+Oleh karena itu, **Random Forest Regressor (Tuned)** dipilih sebagai model akhir karena:
 
 - Mampu menangkap hubungan **non-linear** antar fitur.
 - Memberikan hasil **stabil dan realistis**.
 - Menyediakan **feature importance** sebagai dasar pengambilan keputusan kebijakan.
 
+---
+
+### 🔍 Detail Evaluasi:
+
+#### 🔹 Linear Regression:
+- **MAE:** 2.9820590441431704e-16  
+- **MSE:** 1.4170961715922172e-31  
+- **RMSE:** 3.764433784239294e-16  
+- **R² Score:** 1.0  
+
+⚠️ *Catatan:* Nilai error yang sangat kecil dan akurasi sempurna (R² = 1.0) hampir tidak realistis dan sangat mungkin terjadi akibat **overfitting** atau **kebocoran data**.
+
+---
+
+#### 🔹 Random Forest Regressor (Base):
+- **MAE:** 0.02047456000000001  
+- **MSE:** 0.0006711209520000005  
+- **RMSE:** 0.025906002238863496  
+- **R² Score:** 0.7305369013357019
+
+---
+
+#### 🔹 Random Forest Regressor (Tuned):
+
+> Hasil tuning menggunakan **GridSearchCV** dengan total 135 kombinasi parameter:
+
+```python
+Best Parameters: {'max_depth': None, 'min_samples_split': 2, 'n_estimators': 150}
+```
 ---
 
 ## 🛠️ Hyperparameter Tuning
