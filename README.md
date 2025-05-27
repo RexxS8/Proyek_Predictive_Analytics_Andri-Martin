@@ -51,29 +51,31 @@ Dataset ini diperoleh dari [Kaggle - Flood Prediction Dataset](https://www.kaggl
 
 ## 🔍 Uraian Seluruh Fitur (21 Fitur)
 
-| No | Nama Fitur                 | Deskripsi |
-|----|----------------------------|-----------|
-| 1  | **Rainfall**               | Intensitas curah hujan |
-| 2  | **MonsoonIntensity**       | Skor intensitas musim hujan |
-| 3  | **RiverOverflow**          | Volume luapan sungai |
-| 4  | **DamsQuality**            | Kualitas infrastruktur bendungan |
-| 5  | **DrainageSystems**        | Efektivitas sistem drainase |
-| 6  | **SoilPermeability**       | Permeabilitas tanah terhadap air |
-| 7  | **TopographyDrainage**     | Karakteristik topografi terkait aliran air |
-| 8  | **Urbanization**           | Tingkat urbanisasi di wilayah tersebut |
-| 9  | **Deforestation**          | Skor tingkat deforestasi |
-| 10 | **ClimateChange**          | Indeks dampak perubahan iklim |
-| 11 | **SeaLevelRise**           | Kenaikan permukaan laut |
-| 12 | **GreenCover**             | Persentase tutupan vegetasi hijau |
-| 13 | **WetlandPresence**        | Keberadaan lahan basah di wilayah terkait |
-| 14 | **RiverProximity**         | Jarak ke sungai terdekat |
-| 15 | **InfrastructureDevelopment** | Skor pembangunan infrastruktur umum |
-| 16 | **PoliticalFactors**       | Indeks faktor sosial-politik yang mempengaruhi mitigasi banjir |
-| 17 | **DisasterPreparedness**   | Tingkat kesiapan menghadapi bencana |
-| 18 | **PopulationScore**        | Skor kepadatan dan distribusi populasi |
-| 19 | **PublicAwareness**        | Skor kesadaran publik terhadap risiko banjir |
-| 20 | **EmergencyServices**      | Kualitas dan kesiapan layanan darurat |
-| 21 | **FloodProbability**       | **(Target)** Probabilitas terjadinya banjir (skala 0–1) |
+## 🔍 Uraian Seluruh Fitur (21 Fitur)
+
+| No | Nama Fitur                        | Deskripsi |
+|----|-----------------------------------|-----------|
+| 1  | **MonsoonIntensity**              | Skor intensitas musim hujan |
+| 2  | **TopographyDrainage**            | Karakteristik topografi terkait aliran air |
+| 3  | **RiverManagement**               | Kualitas dan efektivitas pengelolaan sungai |
+| 4  | **Deforestation**                 | Skor tingkat deforestasi |
+| 5  | **Urbanization**                  | Tingkat urbanisasi di wilayah tersebut |
+| 6  | **ClimateChange**                 | Indeks dampak perubahan iklim |
+| 7  | **DamsQuality**                   | Kualitas infrastruktur bendungan |
+| 8  | **Siltation**                     | Tingkat pendangkalan sungai dan waduk |
+| 9  | **AgriculturalPractices**         | Praktik pertanian yang mempengaruhi aliran air |
+| 10 | **Encroachments**                 | Tingkat alih fungsi lahan (permukiman di bantaran sungai, dll) |
+| 11 | **IneffectiveDisasterPreparedness** | Skor kesiapsiagaan bencana yang tidak efektif |
+| 12 | **DrainageSystems**               | Efektivitas sistem drainase |
+| 13 | **CoastalVulnerability**          | Kerentanan wilayah pesisir terhadap banjir |
+| 14 | **Landslides**                    | Frekuensi atau potensi tanah longsor |
+| 15 | **Watersheds**                    | Kondisi dan pengelolaan daerah aliran sungai |
+| 16 | **DeterioratingInfrastructure**   | Kondisi infrastruktur umum yang menurun |
+| 17 | **PopulationScore**               | Skor kepadatan dan distribusi populasi |
+| 18 | **WetlandLoss**                   | Kehilangan lahan basah di wilayah terkait |
+| 19 | **InadequatePlanning**            | Skor perencanaan tata kota yang tidak memadai |
+| 20 | **PoliticalFactors**              | Indeks faktor sosial-politik yang mempengaruhi mitigasi banjir |
+| 21 | **FloodProbability**              | **(Target)** Probabilitas terjadinya banjir (skala 0–1) |
 
 ---
 
@@ -81,34 +83,35 @@ Dataset ini diperoleh dari [Kaggle - Flood Prediction Dataset](https://www.kaggl
 
 Tahapan pemrosesan data dilakukan secara sistematis untuk memastikan kualitas dan kesiapan data sebelum digunakan dalam pelatihan model. Berikut adalah seluruh langkah yang dilakukan:
 
-## 1. 🔍 Pemeriksaan Awal Data
+## 1. 🔍 Pemeriksaan Missing Values
 
-- **Drop Duplicate:**  
-  Telah dilakukan pengecekan terhadap data duplikat, dan **tidak ditemukan duplikat** pada dataset.
+- Pemeriksaan terhadap nilai kosong (missing values) dilakukan menggunakan `df.isnull().sum()`.
+- Hasilnya menunjukkan bahwa **tidak terdapat missing value** pada semua fitur dalam dataset.
 
-- **Cek Missing Values:**  
-  Pemeriksaan terhadap nilai kosong (missing values) dilakukan, dan **tidak terdapat missing value** pada semua fitur.
+## 2. 🧾 Penghapusan Duplikat
 
-## 2. 📉 Deteksi dan Penanganan Outlier
-
-- Deteksi outlier dilakukan menggunakan metode **Interquartile Range (IQR)** pada beberapa fitur yang memiliki nilai ekstrem:
-  - `Urbanization`
-  - `PoliticalFactors`
-
-- Penanganan dapat berupa **penghapusan** atau **transformasi** nilai-nilai outlier, tergantung strategi modeling yang digunakan. Namun, dalam proses ini, outlier **tidak dihapus secara langsung**, melainkan dicatat untuk pertimbangan lanjutan dalam pemilihan algoritma yang lebih tahan terhadap outlier.
+- Dilakukan pengecekan data duplikat menggunakan `df.duplicated().sum()`.
+- Dataset tidak mengandung data duplikat, namun **proses `df.drop_duplicates()` tetap dilakukan** untuk memastikan tidak ada redundansi data.
 
 ## 3. ⚖️ Standarisasi Fitur
 
-- Dilakukan standarisasi terhadap seluruh fitur numerik (selain target) menggunakan **`StandardScaler` dari scikit-learn**.
-- Tujuan standarisasi adalah untuk menyamakan skala antar fitur, terutama karena algoritma seperti **Linear Regression, SVM, dan KNN** sangat sensitif terhadap perbedaan skala.
+- Semua fitur numerik (kecuali target `FloodProbability`) distandarisasi menggunakan **`StandardScaler` dari scikit-learn**.
+- Langkah ini penting agar skala antar fitur menjadi seragam, terutama untuk model seperti **KNN, SVM, dan regresi linier** yang sensitif terhadap skala fitur.
 
-## 4. 🔀 Pembagian Dataset (Train-Test Split)
+## 4. 📉 Deteksi dan Penanganan Outlier
 
-- Dataset dibagi menjadi dua bagian:
-  - **80%** data untuk pelatihan (training)
-  - **20%** data untuk pengujian (testing)
+- Deteksi outlier dilakukan dengan metode **Interquartile Range (IQR)**.
+- Fitur yang dianalisis secara khusus:
+  - `Urbanization`
+  - `PoliticalFactors`
+- Meskipun ditemukan beberapa outlier, data **tidak dihapus**, tetapi dicatat untuk pertimbangan lanjutan, terutama dalam pemilihan model yang robust terhadap outlier.
 
-- **Stratifikasi tidak digunakan**, karena target (`FloodProbability`) bersifat **kontinu (regresi)**, bukan kategori. Stratifikasi umumnya hanya digunakan pada kasus klasifikasi untuk menjaga distribusi label target tetap proporsional di setiap subset.
+## 5. 🔀 Pembagian Dataset (Train-Test Split)
+
+- Dataset dibagi menjadi dua subset:
+  - **80%** untuk pelatihan (training)
+  - **20%** untuk pengujian (testing)
+- Pembagian ini dilakukan **tanpa stratifikasi**, karena target (`FloodProbability`) adalah **variabel kontinu (regresi)**, bukan klasifikasi.
 
 ---
 
