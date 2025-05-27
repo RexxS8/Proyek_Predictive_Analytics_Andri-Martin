@@ -88,23 +88,23 @@ Tahapan pemrosesan data dilakukan secara sistematis untuk memastikan kualitas da
 - Pemeriksaan terhadap nilai kosong (missing values) dilakukan menggunakan `df.isnull().sum()`.
 - Hasilnya menunjukkan bahwa **tidak terdapat missing value** pada semua fitur dalam dataset.
 
-## 2. 🧾 Penghapusan Duplikat
-
-- Dilakukan pengecekan data duplikat menggunakan `df.duplicated().sum()`.
-- Dataset tidak mengandung data duplikat, namun **proses `df.drop_duplicates()` tetap dilakukan** untuk memastikan tidak ada redundansi data.
-
-## 3. ⚖️ Standarisasi Fitur
-
-- Semua fitur numerik (kecuali target `FloodProbability`) distandarisasi menggunakan **`StandardScaler` dari scikit-learn**.
-- Langkah ini penting agar skala antar fitur menjadi seragam, terutama untuk model seperti **KNN, SVM, dan regresi linier** yang sensitif terhadap skala fitur.
-
-## 4. 📉 Deteksi dan Penanganan Outlier
+## 2. 📉 Deteksi dan Penanganan Outlier
 
 - Deteksi outlier dilakukan dengan metode **Interquartile Range (IQR)**.
 - Fitur yang dianalisis secara khusus:
   - `Urbanization`
   - `PoliticalFactors`
 - Meskipun ditemukan beberapa outlier, data **tidak dihapus**, tetapi dicatat untuk pertimbangan lanjutan, terutama dalam pemilihan model yang robust terhadap outlier.
+
+## 3. 🧾 Penghapusan Duplikat
+
+- Dilakukan pengecekan data duplikat menggunakan `df.duplicated().sum()`.
+- Dataset tidak mengandung data duplikat, namun **proses `df.drop_duplicates()` tetap dilakukan** untuk memastikan tidak ada redundansi data.
+
+## 4. ⚖️ Standarisasi Fitur
+
+- Semua fitur numerik (kecuali target `FloodProbability`) distandarisasi menggunakan **`StandardScaler` dari scikit-learn**.
+- Langkah ini penting agar skala antar fitur menjadi seragam, terutama untuk model seperti **KNN, SVM, dan regresi linier** yang sensitif terhadap skala fitur.
 
 ## 5. 🔀 Pembagian Dataset (Train-Test Split)
 
