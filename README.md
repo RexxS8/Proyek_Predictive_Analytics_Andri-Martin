@@ -51,31 +51,29 @@ Dataset ini diperoleh dari [Kaggle - Flood Prediction Dataset](https://www.kaggl
 
 ## 🔍 Uraian Seluruh Fitur (21 Fitur)
 
-## 🔍 Uraian Seluruh Fitur (21 Fitur)
-
-| No | Nama Fitur                        | Deskripsi |
-|----|-----------------------------------|-----------|
-| 1  | **MonsoonIntensity**              | Skor intensitas musim hujan |
-| 2  | **TopographyDrainage**            | Karakteristik topografi terkait aliran air |
-| 3  | **RiverManagement**               | Kualitas dan efektivitas pengelolaan sungai |
-| 4  | **Deforestation**                 | Skor tingkat deforestasi |
-| 5  | **Urbanization**                  | Tingkat urbanisasi di wilayah tersebut |
-| 6  | **ClimateChange**                 | Indeks dampak perubahan iklim |
-| 7  | **DamsQuality**                   | Kualitas infrastruktur bendungan |
-| 8  | **Siltation**                     | Tingkat pendangkalan sungai dan waduk |
-| 9  | **AgriculturalPractices**         | Praktik pertanian yang mempengaruhi aliran air |
-| 10 | **Encroachments**                 | Tingkat alih fungsi lahan (permukiman di bantaran sungai, dll) |
-| 11 | **IneffectiveDisasterPreparedness** | Skor kesiapsiagaan bencana yang tidak efektif |
-| 12 | **DrainageSystems**               | Efektivitas sistem drainase |
-| 13 | **CoastalVulnerability**          | Kerentanan wilayah pesisir terhadap banjir |
-| 14 | **Landslides**                    | Frekuensi atau potensi tanah longsor |
-| 15 | **Watersheds**                    | Kondisi dan pengelolaan daerah aliran sungai |
-| 16 | **DeterioratingInfrastructure**   | Kondisi infrastruktur umum yang menurun |
-| 17 | **PopulationScore**               | Skor kepadatan dan distribusi populasi |
-| 18 | **WetlandLoss**                   | Kehilangan lahan basah di wilayah terkait |
-| 19 | **InadequatePlanning**            | Skor perencanaan tata kota yang tidak memadai |
-| 20 | **PoliticalFactors**              | Indeks faktor sosial-politik yang mempengaruhi mitigasi banjir |
-| 21 | **FloodProbability**              | **(Target)** Probabilitas terjadinya banjir (skala 0–1) |
+| No | Nama Fitur                        | Tipe Data  | Deskripsi |
+|----|-----------------------------------|------------|-----------|
+| 1  | `MonsoonIntensity`                | `float64`  | Skor intensitas musim hujan berdasarkan curah hujan historis dan prediksi iklim |
+| 2  | `TopographyDrainage`              | `float64`  | Karakteristik topografi yang mempengaruhi aliran dan akumulasi air |
+| 3  | `RiverManagement`                 | `float64`  | Skor efektivitas pengelolaan sungai (normalisasi, pengerukan, tanggul, dll) |
+| 4  | `Deforestation`                   | `float64`  | Skor tingkat deforestasi yang memengaruhi resapan air |
+| 5  | `Urbanization`                    | `float64`  | Skor intensitas urbanisasi yang menyebabkan peningkatan permukaan kedap air |
+| 6  | `ClimateChange`                   | `float64`  | Indeks dampak perubahan iklim terhadap intensitas cuaca ekstrem |
+| 7  | `DamsQuality`                     | `float64`  | Skor kualitas dan integritas infrastruktur bendungan di wilayah terkait |
+| 8  | `Siltation`                       | `float64`  | Tingkat pendangkalan akibat sedimentasi di sungai dan waduk |
+| 9  | `AgriculturalPractices`          | `float64`  | Praktik pertanian yang berkontribusi terhadap limpasan air (runoff) |
+| 10 | `Encroachments`                  | `float64`  | Skor alih fungsi lahan, seperti permukiman ilegal di bantaran sungai |
+| 11 | `IneffectiveDisasterPreparedness`| `float64`  | Skor rendahnya kesiapsiagaan dalam menghadapi bencana banjir |
+| 12 | `DrainageSystems`                | `float64`  | Skor efektivitas sistem drainase kota atau wilayah |
+| 13 | `CoastalVulnerability`           | `float64`  | Skor kerentanan wilayah pesisir terhadap banjir rob atau badai |
+| 14 | `Landslides`                     | `float64`  | Frekuensi kejadian tanah longsor yang memperburuk risiko banjir |
+| 15 | `Watersheds`                     | `float64`  | Kondisi dan efektivitas pengelolaan daerah aliran sungai (DAS) |
+| 16 | `DeterioratingInfrastructure`    | `float64`  | Tingkat kerusakan atau penurunan kualitas infrastruktur umum |
+| 17 | `PopulationScore`                | `float64`  | Skor kepadatan dan kerentanan populasi terhadap banjir |
+| 18 | `WetlandLoss`                    | `float64`  | Tingkat kehilangan lahan basah yang berdampak pada daya tampung air |
+| 19 | `InadequatePlanning`             | `float64`  | Skor buruknya perencanaan tata kota dan penggunaan lahan |
+| 20 | `PoliticalFactors`               | `float64`  | Indeks faktor sosial-politik yang mempengaruhi kebijakan mitigasi banjir |
+| 21 | `FloodProbability`               | `float64`  | **(Target)** Probabilitas terjadinya banjir dalam rentang skala 0–1 |
 
 ---
 
